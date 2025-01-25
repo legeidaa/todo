@@ -56,7 +56,11 @@ export default function Home() {
             )
         );
     };
-    
+
+    const handleDeleteTask = (id: number) => {
+        setTasks((tasks) => tasks.filter((task) => task.id !== id));
+    };
+
     return (
         <main className={styles.page}>
             <section className={styles.task}>
@@ -67,6 +71,7 @@ export default function Home() {
                 <TasksList
                     tasks={visibleTasks}
                     onCheckboxChange={handleCheckboxChange}
+                    onDeleteTask={handleDeleteTask}
                 />
 
                 <footer>

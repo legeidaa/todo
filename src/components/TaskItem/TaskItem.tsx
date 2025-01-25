@@ -7,14 +7,19 @@ import { Checkbox } from "../Checkbox/Checkbox";
 interface TaskItemProps {
     taskData: Task;
     onCheckboxChange: (index: number) => void;
+    onDeleteTask: (index: number) => void
 }
 
 export const TaskItem: FC<TaskItemProps> = (props) => {
-    const { taskData, onCheckboxChange } = props;
+    const { taskData, onCheckboxChange, onDeleteTask } = props;
 
     const handleCheckboxChange = () => {
         onCheckboxChange(taskData.id);
     };
+
+    const handleDeleteTask = () => {
+        onDeleteTask(taskData.id)
+    }
 
     return (
         <li
@@ -33,6 +38,9 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
                 })}
             >
                 {taskData.value}
+            </div>
+            <div className={styles.buttons}>
+                <button className={styles.delete} onClick={handleDeleteTask}>del</button>
             </div>
         </li>
     );
