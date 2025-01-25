@@ -5,8 +5,6 @@ export const filterTasks = (tasks: Task[], activeCategory: FilterCategory) => {
         if (activeCategory === "all") {
             return true;
         } else if (activeCategory === "active") {
-            console.log('filter', task);
-            
             return !task.completed;
         } else if (activeCategory === "completed") {
             return task.completed;

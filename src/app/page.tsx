@@ -2,10 +2,10 @@
 import { useMemo, useState } from "react";
 import styles from "./page.module.css";
 import { FilterCategory, Task } from "@/model/interfaces";
-import { TaskItem } from "@/components/TaskItem/TaskItem";
 import { AddTaskInput } from "@/components/AddTaskInput/AddTaskInput";
 import { Filter } from "@/components/Filter/Filter";
 import { filterTasks } from "@/utils/filterTasks";
+import { TasksList } from "@/components/TasksList/TasksList";
 
 const defaultTasks: Task[] = [
     { id: 1, value: "Lorem ipsum", completed: false },
@@ -14,12 +14,12 @@ const defaultTasks: Task[] = [
 
 export default function Home() {
     const [tasks, setTasks] = useState<Task[]>(defaultTasks);
-    const [activeCategory, setActiveCategory] = useState<FilterCategory>("all");
+    const [activeCategory, setActiveCategory] = useState<FilterCategory>(FilterCategory.ALL);
     const visibleTasks = useMemo(
         () => filterTasks(tasks, activeCategory),
         [activeCategory, tasks]
     );
-    
+
     const handleAddTask = (value: string): void => {
         const newTask: Task = {
             value: value,
@@ -30,20 +30,20 @@ export default function Home() {
     };
 
     const handleFilterSwitch = (category: FilterCategory): void => {
-        console.log(category);
-
         switch (category) {
-            case "all":
-                setActiveCategory("all");
+            case FilterCategory.ALL:
+                setActiveCategory(FilterCategory.ALL);
                 break;
 
-            case "active":
-                setActiveCategory("active");
+            case FilterCategory.ACTIVE:
+                setActiveCategory(FilterCategory.ACTIVE);
                 break;
 
-            case "completed":
-                setActiveCategory("completed");
+            case FilterCategory.COMPLETED:
+                setActiveCategory(FilterCategory.COMPLETED);
                 break;
+            default:
+                throw new Error("Invalid category");
         }
     };
 
@@ -53,14 +53,12 @@ export default function Home() {
                 <header>
                     <AddTaskInput onAddTask={handleAddTask} />
                 </header>
-                <ul>
-                    {visibleTasks.map((task) => (
-                        <TaskItem key={task.id} taskData={task} />
-                    ))}
-                </ul>
+
+                <TasksList tasks={visibleTasks} />
+
                 <footer>
                     <Filter
-                        // activeCount={activeTasks.length}
+                        tasks={tasks}
                         activeRadio={activeCategory}
                         onFilterSwitch={handleFilterSwitch}
                     />

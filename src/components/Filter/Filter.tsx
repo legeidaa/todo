@@ -1,31 +1,37 @@
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, useMemo } from "react";
 import styles from "./Filter.module.css";
-import { FilterCategory } from "@/model/interfaces";
+import { FilterCategory, Task } from "@/model/interfaces";
 import { isFilterCategory } from "@/utils/isFilterCategory";
 
 interface FilterProps {
-    // activeCount: number;
+    tasks: Task[];
     onFilterSwitch: (category: FilterCategory) => void;
     activeRadio: FilterCategory;
 }
 
 export const Filter: FC<FilterProps> = (props) => {
-    const {  onFilterSwitch, activeRadio } = props;
+    const { tasks, onFilterSwitch, activeRadio } = props;
 
     const handleFilterSwitch = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         if (isFilterCategory(value)) onFilterSwitch(value);
     };
+
+    const activeCount = useMemo(
+        () => tasks.filter((task) => !task.completed).length,
+        [tasks]
+    );
+
     return (
         <div className={styles.filter}>
-            {/* <div className={styles.left}>{activeCount} tasks left</div> */}
+            <div className={styles.left}>{activeCount} tasks left</div>
             <form className={styles.filterRadios}>
                 <label>
                     <input
                         type="radio"
                         name="filter"
-                        checked={activeRadio === "all"}
-                        value={"all"}
+                        checked={activeRadio === FilterCategory.ALL}
+                        value={FilterCategory.ALL}
                         onChange={handleFilterSwitch}
                     />
                     <span>All</span>
@@ -34,8 +40,8 @@ export const Filter: FC<FilterProps> = (props) => {
                     <input
                         type="radio"
                         name="filter"
-                        checked={activeRadio === "active"}
-                        value={"active"}
+                        checked={activeRadio === FilterCategory.ACTIVE}
+                        value={FilterCategory.ACTIVE}
                         onChange={handleFilterSwitch}
                     />
                     <span>active</span>
@@ -44,8 +50,8 @@ export const Filter: FC<FilterProps> = (props) => {
                     <input
                         type="radio"
                         name="filter"
-                        checked={activeRadio === "completed"}
-                        value={"completed"}
+                        checked={activeRadio === FilterCategory.COMPLETED}
+                        value={FilterCategory.COMPLETED}
                         onChange={handleFilterSwitch}
                     />
                     <span>completed</span>

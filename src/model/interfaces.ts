@@ -4,4 +4,8 @@ export interface Task {
     completed: boolean;
 }
 
-export type FilterCategory = 'all' | 'active' | 'completed'
+export const enum FilterCategory {
+    ALL = 'all',
+    ACTIVE = 'active',
+    COMPLETED = 'completed'
+}
