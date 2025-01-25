@@ -1,0 +1,6 @@
+.task {
+    display: flex;
+}
+.taskValue.completed {
+    text-decoration: line-through;
+}

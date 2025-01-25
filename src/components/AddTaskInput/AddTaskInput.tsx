@@ -1,4 +1,4 @@
-import styles from "./AddTaskInput.module.css";
+import styles from "./AddTaskInput.module.scss";
 import { ChangeEvent, FC, useState } from "react";
 
 interface AddTaskInputProps {

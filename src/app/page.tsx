@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 import { FilterCategory, Task } from "@/model/interfaces";
 import { AddTaskInput } from "@/components/AddTaskInput/AddTaskInput";
 import { Filter } from "@/components/Filter/Filter";
@@ -14,7 +14,9 @@ const defaultTasks: Task[] = [
 
 export default function Home() {
     const [tasks, setTasks] = useState<Task[]>(defaultTasks);
-    const [activeCategory, setActiveCategory] = useState<FilterCategory>(FilterCategory.ALL);
+    const [activeCategory, setActiveCategory] = useState<FilterCategory>(
+        FilterCategory.ALL
+    );
     const visibleTasks = useMemo(
         () => filterTasks(tasks, activeCategory),
         [activeCategory, tasks]
@@ -47,6 +49,14 @@ export default function Home() {
         }
     };
 
+    const handleCheckboxChange = (id: number) => {
+        setTasks((tasks) =>
+            tasks.map((task) =>
+                task.id === id ? { ...task, completed: !task.completed } : task
+            )
+        );
+    };
+    
     return (
         <main className={styles.page}>
             <section className={styles.task}>
@@ -54,7 +64,10 @@ export default function Home() {
                     <AddTaskInput onAddTask={handleAddTask} />
                 </header>
 
-                <TasksList tasks={visibleTasks} />
+                <TasksList
+                    tasks={visibleTasks}
+                    onCheckboxChange={handleCheckboxChange}
+                />
 
                 <footer>
                     <Filter

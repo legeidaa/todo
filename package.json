@@ -21,6 +21,7 @@
     "classnames": "^2.5.1",
     "eslint": "^9",
     "eslint-config-next": "15.1.5",
+    "sass": "^1.83.4",
     "typescript": "^5"
   }
 }
