@@ -1,5 +1,17 @@
 .task {
     display: flex;
+
+    &.editable {
+        .delete, .edit {
+            display: none;
+        }
+        .saveEdit {
+            display: block;
+        }
+    }
+}
+.saveEdit {
+    display: none;
 }
 .taskValue.completed {
     text-decoration: line-through;

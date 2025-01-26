@@ -5,12 +5,13 @@ import { TaskItem } from "../TaskItem/TaskItem";
 
 interface TasksListProps {
     tasks: Task[];
-    onCheckboxChange(index: number): void;
-    onDeleteTask(index: number): void;
+    onCheckboxChange(id: number): void;
+    onDeleteTask(id: number): void;
+    onEdit: (id: number, value: string) => void;
 }
 
 export const TasksList: FC<TasksListProps> = (props) => {
-    const { tasks, onCheckboxChange, onDeleteTask } = props;
+    const { tasks, onCheckboxChange, onDeleteTask, onEdit } = props;
 
     return (
         <div className={styles.listWrapper}>
@@ -26,6 +27,7 @@ export const TasksList: FC<TasksListProps> = (props) => {
                         taskData={task}
                         onCheckboxChange={onCheckboxChange}
                         onDeleteTask={onDeleteTask}
+                        onEdit={onEdit}
                     />
                 ))}
             </ul>

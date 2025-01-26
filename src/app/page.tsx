@@ -9,7 +9,7 @@ import { TasksList } from "@/components/TasksList/TasksList";
 
 const defaultTasks: Task[] = [
     { id: 1, value: "Lorem ipsum", completed: false },
-    { id: 2, value: "Lorem ipsum dolor", completed: true },
+    { id: 2, value: "Lorem ipsum dolor Lorem ", completed: true },
 ];
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
         [activeCategory, tasks]
     );
 
-    const handleAddTask = (value: string): void => {
+    const handleAddTask = (value: string) => {
         const newTask: Task = {
             value: value,
             id: Number(new Date()),
@@ -31,7 +31,7 @@ export default function Home() {
         setTasks((tasks) => [...tasks, newTask]);
     };
 
-    const handleFilterSwitch = (category: FilterCategory): void => {
+    const handleFilterSwitch = (category: FilterCategory) => {
         switch (category) {
             case FilterCategory.ALL:
                 setActiveCategory(FilterCategory.ALL);
@@ -57,10 +57,18 @@ export default function Home() {
         );
     };
 
+    const handleEdit = (id: number, newValue: string) => {
+        setTasks((tasks) =>
+            tasks.map((task) =>
+                task.id === id ? { ...task, value: newValue } : task
+            )
+        );
+    };
+
     const handleDeleteTask = (id: number) => {
         setTasks((tasks) => tasks.filter((task) => task.id !== id));
     };
-
+    
     return (
         <main className={styles.page}>
             <section className={styles.task}>
@@ -72,6 +80,7 @@ export default function Home() {
                     tasks={visibleTasks}
                     onCheckboxChange={handleCheckboxChange}
                     onDeleteTask={handleDeleteTask}
+                    onEdit={handleEdit}
                 />
 
                 <footer>
