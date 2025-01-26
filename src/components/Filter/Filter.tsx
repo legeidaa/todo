@@ -7,20 +7,24 @@ interface FilterProps {
     tasks: Task[];
     onFilterSwitch: (category: FilterCategory) => void;
     activeRadio: FilterCategory;
+    onClearCompletedClick: () => void;
 }
 
 export const Filter: FC<FilterProps> = (props) => {
-    const { tasks, onFilterSwitch, activeRadio } = props;
+    const { tasks, onFilterSwitch, activeRadio, onClearCompletedClick } = props;
+    const activeCount = useMemo(
+        () => tasks.filter((task) => !task.completed).length,
+        [tasks]
+    );
 
     const handleFilterSwitch = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         if (isFilterCategory(value)) onFilterSwitch(value);
     };
 
-    const activeCount = useMemo(
-        () => tasks.filter((task) => !task.completed).length,
-        [tasks]
-    );
+    const handleClearCompletedClick = () => {
+        onClearCompletedClick();
+    };
 
     return (
         <div className={styles.filter}>
@@ -57,7 +61,12 @@ export const Filter: FC<FilterProps> = (props) => {
                     <span>completed</span>
                 </label>
             </form>
-            <button className={styles.clearBtn}>Clear completed</button>
+            <button
+                className={styles.clearBtn}
+                onClick={handleClearCompletedClick}
+            >
+                Clear completed
+            </button>
         </div>
     );
 };

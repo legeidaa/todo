@@ -68,7 +68,11 @@ export default function Home() {
     const handleDeleteTask = (id: number) => {
         setTasks((tasks) => tasks.filter((task) => task.id !== id));
     };
-    
+
+    const clearCompleted = () => {
+        setTasks((tasks) => tasks.filter((task) => !task.completed));
+    };
+
     return (
         <main className={styles.page}>
             <section className={styles.task}>
@@ -88,6 +92,7 @@ export default function Home() {
                         tasks={tasks}
                         activeRadio={activeCategory}
                         onFilterSwitch={handleFilterSwitch}
+                        onClearCompletedClick={clearCompleted}
                     />
                 </footer>
             </section>
