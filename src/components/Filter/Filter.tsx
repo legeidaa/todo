@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useMemo } from "react";
-import styles from "./Filter.module.css";
+import styles from "./Filter.module.scss";
 import { FilterCategory, Task } from "@/model/interfaces";
 import { isFilterCategory } from "@/utils/isFilterCategory";
 
@@ -30,35 +30,40 @@ export const Filter: FC<FilterProps> = (props) => {
         <div className={styles.filter}>
             <div className={styles.left}>{activeCount} tasks left</div>
             <form className={styles.filterRadios}>
-                <label>
+                <label className={styles.filterLabel}>
                     <input
                         type="radio"
                         name="filter"
                         checked={activeRadio === FilterCategory.ALL}
                         value={FilterCategory.ALL}
                         onChange={handleFilterSwitch}
+                        className={styles.filterInput}
+
                     />
-                    <span>All</span>
+                    <span className={styles.filterSpan}>All</span>
                 </label>
-                <label>
+                <label className={styles.filterLabel} >
                     <input
                         type="radio"
                         name="filter"
                         checked={activeRadio === FilterCategory.ACTIVE}
                         value={FilterCategory.ACTIVE}
                         onChange={handleFilterSwitch}
+                        className={styles.filterInput}
                     />
-                    <span>active</span>
+                    <span className={styles.filterSpan}>Active</span>
                 </label>
-                <label>
+                <label className={styles.filterLabel} >
                     <input
                         type="radio"
                         name="filter"
                         checked={activeRadio === FilterCategory.COMPLETED}
                         value={FilterCategory.COMPLETED}
                         onChange={handleFilterSwitch}
+                        className={styles.filterInput}
+
                     />
-                    <span>completed</span>
+                    <span className={styles.filterSpan}>Completed</span>
                 </label>
             </form>
             <button

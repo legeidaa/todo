@@ -1,18 +1,87 @@
+@use '../../assets/scss/mixins.scss' as *;
+
 .task {
     display: flex;
+    background: var(--purple-50);
+    border-radius: 0.375rem;
+    padding: 0.25rem;
+    color: var(--purple-400);
+    transition: 0.25s all;
+    min-height: 34px;
+    flex-shrink: 0;
 
     &.editable {
-        .delete, .edit {
+
+        .deleteBtn,
+        .editBtn {
             display: none;
         }
+
         .saveEdit {
             display: block;
         }
     }
+
+    &.completed {
+        color: var(--purple-200);
+    }
 }
+
+.checkbox {
+    position: relative;
+    top: 3px;
+}
+
 .saveEdit {
     display: none;
 }
-.taskValue.completed {
-    text-decoration: line-through;
+
+.taskValue {
+    display: flex;
+    align-items: center;
+    border-radius: 0.25rem;
+    padding:  0 0.25rem;
+    transition: 0.15s all;
+
+    &.completed {
+        text-decoration: line-through;
+    }
+
+    &[contenteditable="true"] {
+
+        background: var(--purple-100);
+        width: 100%;
+        outline: none;
+    }
+
+}
+
+.taskButtons {
+    margin-left: auto;
+    display: flex;
+    align-items: baseline;
+}
+
+.editBtn,
+.deleteBtn {
+    @include button;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+
+}
+
+.editBtn {
+    border-radius: 0.25rem 0 0 0.25rem;
+    border-right: none;
+}
+
+.deleteBtn {
+    border-radius: 0 0.25rem 0.25rem 0;
 }

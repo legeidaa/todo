@@ -15,22 +15,23 @@ export const TasksList: FC<TasksListProps> = (props) => {
 
     return (
         <div className={styles.listWrapper}>
-            {tasks.length === 0 && (
+            {tasks.length === 0 ? (
                 <div className={styles.emptyList}>
                     There are no tasks in this category
                 </div>
+            ) : (
+                <ul className={styles.list}>
+                    {tasks.map((task) => (
+                        <TaskItem
+                            key={task.id}
+                            taskData={task}
+                            onCheckboxChange={onCheckboxChange}
+                            onDeleteTask={onDeleteTask}
+                            onEdit={onEdit}
+                        />
+                    ))}
+                </ul>
             )}
-            <ul className={styles.list}>
-                {tasks.map((task) => (
-                    <TaskItem
-                        key={task.id}
-                        taskData={task}
-                        onCheckboxChange={onCheckboxChange}
-                        onDeleteTask={onDeleteTask}
-                        onEdit={onEdit}
-                    />
-                ))}
-            </ul>
         </div>
     );
 };

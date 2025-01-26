@@ -1,0 +1,25 @@
+@mixin button {
+    border: 1px solid var(--purple-200);
+    color: var(--purple-400);
+    background: var(--purple-50);
+    cursor: pointer;
+    transition: 0.25s all;
+    font-weight: 500;
+
+    &:hover {
+        color: var(--purple-500);
+    }
+
+    &:active {
+        background: var(--purple-100);
+    }
+
+    &:disabled {
+        background: var(--purple-25);
+        color: var(--purple-200);
+        cursor: inherit;
+    }
+    &:focus-visible {
+        box-shadow: 0 0 0 0.2rem var(--purple-200);
+    }
+}

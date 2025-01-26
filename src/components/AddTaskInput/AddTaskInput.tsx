@@ -15,13 +15,25 @@ export const AddTaskInput: FC<AddTaskInputProps> = (props) => {
 
     const handleAddBtnClick = () => {
         onAddTask(value);
-        setValue('');
+        setValue("");
     };
 
     return (
         <div className={styles.wrapper}>
-            <input type="text" value={value} onChange={handleInputChange} />
-            {value.length > 0 && <button onClick={handleAddBtnClick}>Add</button>}
+            <input
+                type="text"
+                placeholder="Add a task"
+                value={value}
+                className={styles.input}
+                onChange={handleInputChange}
+            />
+            <button
+                onClick={handleAddBtnClick}
+                className={styles.button}
+                disabled={value.length < 1}
+            >
+                Add
+            </button>
         </div>
     );
 };

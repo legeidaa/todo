@@ -6,11 +6,7 @@ import { AddTaskInput } from "@/components/AddTaskInput/AddTaskInput";
 import { Filter } from "@/components/Filter/Filter";
 import { filterTasks } from "@/utils/filterTasks";
 import { TasksList } from "@/components/TasksList/TasksList";
-
-const defaultTasks: Task[] = [
-    { id: 1, value: "Lorem ipsum", completed: false },
-    { id: 2, value: "Lorem ipsum dolor Lorem ", completed: true },
-];
+import { defaultTasks } from "@/utils/defaultTasks";
 
 export default function Home() {
     const [tasks, setTasks] = useState<Task[]>(defaultTasks);
@@ -74,9 +70,10 @@ export default function Home() {
     };
 
     return (
-        <main className={styles.page}>
-            <section className={styles.task}>
+        <main className={styles.main}>
+            <section className={styles.tasks}>
                 <header>
+                    <h1 className={styles.title}>TODO</h1>
                     <AddTaskInput onAddTask={handleAddTask} />
                 </header>
 

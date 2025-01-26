@@ -3,6 +3,8 @@ import styles from "./TaskItem.module.scss";
 import cn from "classnames";
 import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { Checkbox } from "../Checkbox/Checkbox";
+import { Pen } from "../Icons/Pen/Pen";
+import { TrashCan } from "../Icons/TrashCan/TrashCan";
 
 interface TaskItemProps {
     taskData: Task;
@@ -60,10 +62,12 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
                 [styles.editable]: isEditable,
             })}
         >
-            <Checkbox
-                checked={taskData.completed}
-                onChange={handleCheckboxChange}
-            />
+            <div className={styles.checkbox}>
+                <Checkbox
+                    checked={taskData.completed}
+                    onChange={handleCheckboxChange}
+                />
+            </div>
 
             <div
                 className={cn(styles.taskValue, {
@@ -78,11 +82,11 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
                 {value}
             </div>
             <div className={styles.taskButtons}>
-                <button className={styles.edit} onClick={enableEdit}>
-                    edit
+                <button className={styles.editBtn} onClick={enableEdit}>
+                    <Pen />
                 </button>
-                <button className={styles.delete} onClick={handleDeleteTask}>
-                    del
+                <button className={styles.deleteBtn} onClick={handleDeleteTask}>
+                    <TrashCan />   
                 </button>
             </div>
         </li>
