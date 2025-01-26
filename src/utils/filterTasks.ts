@@ -8,6 +8,8 @@ export const filterTasks = (tasks: Task[], activeCategory: FilterCategory) => {
             return !task.completed;
         } else if (activeCategory === "completed") {
             return task.completed;
+        } else {
+            throw new Error("Invalid category");
         }
     });
 };

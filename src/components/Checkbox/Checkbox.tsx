@@ -10,7 +10,7 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
     const { onChange, checked } = props;
 
     return (
-        <label className={styles.label}>
+        <label className={styles.label} data-testid="checkbox">
             <input
                 className={styles.input}
                 type="checkbox"

@@ -28,7 +28,7 @@ export const Filter: FC<FilterProps> = (props) => {
 
     return (
         <div className={styles.filter}>
-            <div className={styles.left}>{activeCount} tasks left</div>
+            <div className={styles.left}>{activeCount} active left</div>
             <form className={styles.filterRadios}>
                 <label className={styles.filterLabel}>
                     <input

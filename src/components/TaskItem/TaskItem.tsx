@@ -77,15 +77,16 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
                 onBlur={disableEdit}
                 contentEditable={isEditable}
                 ref={taskDivRef}
+                data-testid="task-value"
                 suppressContentEditableWarning
             >
                 {value}
             </div>
             <div className={styles.taskButtons}>
-                <button className={styles.editBtn} onClick={enableEdit}>
+                <button data-testid="task-edit" className={styles.editBtn} onClick={enableEdit}>
                     <Pen />
                 </button>
-                <button className={styles.deleteBtn} onClick={handleDeleteTask}>
+                <button data-testid="task-delete" className={styles.deleteBtn} onClick={handleDeleteTask}>
                     <TrashCan />   
                 </button>
             </div>
