@@ -9,7 +9,7 @@ describe("Filter", () => {
         { id: 3, value: "Task 3", completed: false },
     ];
 
-    it("renders tasks left, filter options and clear completed button", () => {
+    test("renders tasks left, filter options and clear completed button", () => {
         const { getByText } = render(
             <Filter
                 tasks={tasks}
@@ -25,7 +25,7 @@ describe("Filter", () => {
         expect(getByText("Clear completed")).toBeInTheDocument();
     });
 
-    it("calls onFilterSwitch when filter option is changed", () => {
+    test("calls onFilterSwitch when filter option is changed", () => {
         const onFilterSwitch = jest.fn();
         const { getByRole } = render(
             <Filter
@@ -42,7 +42,7 @@ describe("Filter", () => {
         expect(onFilterSwitch).toHaveBeenCalledWith(FilterCategory.ACTIVE);
     });
 
-    it("calls onClearCompletedClick", () => {
+    test("calls onClearCompletedClick", () => {
         const onClearCompletedClick = jest.fn();
         const { getByText } = render(
             <Filter

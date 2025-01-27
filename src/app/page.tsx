@@ -1,73 +1,23 @@
 "use client";
-import { useMemo, useState } from "react";
 import styles from "./page.module.scss";
-import { FilterCategory, Task } from "@/model/interfaces";
 import { AddTaskInput } from "@/components/AddTaskInput/AddTaskInput";
 import { Filter } from "@/components/Filter/Filter";
-import { filterTasks } from "@/utils/filterTasks";
 import { TasksList } from "@/components/TasksList/TasksList";
 import { defaultTasks } from "@/utils/defaultTasks";
+import { useTaskHandlers } from "@/hooks/useTaskHandlers";
 
 export default function Home() {
-    const [tasks, setTasks] = useState<Task[]>(defaultTasks);
-    const [activeCategory, setActiveCategory] = useState<FilterCategory>(
-        FilterCategory.ALL
-    );
-    const visibleTasks = useMemo(
-        () => filterTasks(tasks, activeCategory),
-        [activeCategory, tasks]
-    );
-
-    const handleAddTask = (value: string) => {
-        const newTask: Task = {
-            value: value,
-            id: Number(new Date()),
-            completed: false,
-        };
-        setTasks((tasks) => [...tasks, newTask]);
-    };
-
-    const handleFilterSwitch = (category: FilterCategory) => {
-        switch (category) {
-            case FilterCategory.ALL:
-                setActiveCategory(FilterCategory.ALL);
-                break;
-
-            case FilterCategory.ACTIVE:
-                setActiveCategory(FilterCategory.ACTIVE);
-                break;
-
-            case FilterCategory.COMPLETED:
-                setActiveCategory(FilterCategory.COMPLETED);
-                break;
-            default:
-                throw new Error("Invalid category");
-        }
-    };
-
-    const handleCheckboxChange = (id: number) => {
-        setTasks((tasks) =>
-            tasks.map((task) =>
-                task.id === id ? { ...task, completed: !task.completed } : task
-            )
-        );
-    };
-
-    const handleEdit = (id: number, newValue: string) => {
-        setTasks((tasks) =>
-            tasks.map((task) =>
-                task.id === id ? { ...task, value: newValue } : task
-            )
-        );
-    };
-
-    const handleDeleteTask = (id: number) => {
-        setTasks((tasks) => tasks.filter((task) => task.id !== id));
-    };
-
-    const clearCompleted = () => {
-        setTasks((tasks) => tasks.filter((task) => !task.completed));
-    };
+    const {
+        tasks,
+        activeCategory,
+        visibleTasks,
+        handleAddTask,
+        handleFilterSwitch,
+        handleCheckboxChange,
+        handleEdit,
+        handleDeleteTask,
+        clearCompleted,
+    } = useTaskHandlers({ initialTasks: defaultTasks });
 
     return (
         <main className={styles.main}>

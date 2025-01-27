@@ -21,15 +21,14 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
     const taskDivRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (isEditable && taskDivRef.current) {
-            taskDivRef.current.focus();
-            const selection = window.getSelection();
+        if (!isEditable || !taskDivRef.current) return;
+        taskDivRef.current.focus();
+        const selection = window.getSelection();
 
-            if (!selection) return;
+        if (!selection) return;
 
-            selection.selectAllChildren(taskDivRef.current);
-            selection.collapseToEnd();
-        }
+        selection.selectAllChildren(taskDivRef.current);
+        selection.collapseToEnd();
     }, [isEditable]);
 
     const handleCheckboxChange = () => {
@@ -83,11 +82,19 @@ export const TaskItem: FC<TaskItemProps> = (props) => {
                 {value}
             </div>
             <div className={styles.taskButtons}>
-                <button data-testid="task-edit" className={styles.editBtn} onClick={enableEdit}>
+                <button
+                    data-testid="task-edit"
+                    className={styles.editBtn}
+                    onClick={enableEdit}
+                >
                     <Pen />
                 </button>
-                <button data-testid="task-delete" className={styles.deleteBtn} onClick={handleDeleteTask}>
-                    <TrashCan />   
+                <button
+                    data-testid="task-delete"
+                    className={styles.deleteBtn}
+                    onClick={handleDeleteTask}
+                >
+                    <TrashCan />
                 </button>
             </div>
         </li>
